@@ -1,0 +1,39 @@
+{% extends 'e_store/layout/base.html' %}
+{% block title %}
+Вход
+{% endblock %}
+
+{% block content %}
+
+
+{% if next %}
+    {% if user.is_authenticated %}
+    <p>Your account doesn't have access to this page. To proceed,
+    please login with an account that has access.</p>
+    {% else %}
+    <p>Please login to see this page.</p>
+    {% endif %}
+{% endif %}
+
+<div class="register-form px-5 mb-0">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="register-form-header">
+            <h1>Вход</h1>
+        </div>
+        <label for="username-field">Логин</label>
+        <input type="text" id="username-field" class="form-control input-block mb-2" name="username">
+        <label for="password-field">Пароль</label>
+        <input type="password" id="password-field" class="form-control input-block mb-2" name="password">
+        <input type="submit" class="btn btn-block btn-primary" value="Войти">
+        <input type="hidden" name="next" value="{{ next }}">
+        <div class="register-form-header">
+            <p>
+                {% if form.errors %}
+                    <p style="color:red">Your username and password didn't match. Please try again.</p>
+                {% endif %}
+            </p>
+        </div>
+    </form>
+</div>
+{% endblock %}

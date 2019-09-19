@@ -1,0 +1,25 @@
+{% extends 'e_store/layout/base.html' %}
+{% block title %}{{ current_category.title }}{% endblock %}
+
+{% block content %}
+    <h1 style="text-align:center; font-weight:600">{{current_category.title }}</h1>
+    <div class="container-fluid d-flex flex-wrap justify-content-between">
+    {% for p in products %}
+        <div class="col-sm-2 p-2 catalog-item m-3">
+            <img class="img-fluid catalog-item-image" src="{{ p.image.url }}" alt="{{ p.title }}">
+            <div class="catalog-item-info mt-3">
+                <div class="catalog-item-title">
+                    <h5>{{ p.title }}</h5>
+                </div>
+                <div>
+                    <h4>{{ p.price }} грн</h4>
+                    <a href="{{ p.id }}">
+                    <button class="btn btn-block btn-dark p-1">Подробнее</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+
+{% endblock %}
