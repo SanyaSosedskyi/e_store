@@ -1,0 +1,35 @@
+{% extends 'e_store/layout/base.html' %}
+{% block title %}
+Корзина
+{% endblock %}
+
+{% block content %}
+    <h1 class="text-center">Корзина</h1>
+    <div class="container-fluid d-flex flex-wrap justify-content-start">
+    {% for key, value in basket_modified.items %}
+        <div class="col-sm-2 p-2 catalog-item  m-3">
+            <img class="img-fluid catalog-item-image" src="{{ value.product.image.url }}" alt="{{ value.product.title }}">
+            <div class="catalog-item-info mt-3">
+                <div class="catalog-item-title">
+                    <h5>{{ value.product.title }}</h5>
+                </div>
+                <div>
+                    <h5 class="text-right">Количество: <strong>{{ value.amount }} шт.</strong></h5>
+                    <h5 class="text-right">Сумма: <strong>{{ value.sum }} грн</strong></h5>
+                    <a href="{{ value.product.id }}">
+                    <button class="btn btn-block btn-danger p-1">Убрать из корзины</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+    <div class="basket-order px-5 m-auto">
+        <form method="POST" class="mt-5">
+            {% csrf_token %}
+            <input type="text" class="form-control" placeholder="Адрес доставки" name="address" required>
+            <h5 class="text-center mt-1"><strong>Сумма заказа:</strong> {{ order_total }} грн</h5>
+            <button type="submit" class="p-1 btn btn-block btn-success">Заказать</button>
+        </form>
+    </div>
+{% endblock %}

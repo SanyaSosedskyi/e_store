@@ -12,6 +12,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 </head>
 <body>
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
@@ -38,9 +39,6 @@
                     </ul>
             </div>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Поиск</a>
-                </li>
                 {% if not request.user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'accounts:login' %}">Вход</a>
@@ -50,10 +48,10 @@
                 </li>
                 {% else %}
                     <li class="nav-item">
-                        <a href="#" class="nav-link">Корзина</a>
+                        <a href="{% url 'e_store:basket' %}" class="nav-link">Корзина</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">Профиль</a>
+                        <a href="{% url 'accounts:profile' %}" class="nav-link">Профиль</a>
                     </li>
                     <li class="nav-item">
                         <a href="{% url 'accounts:logout' %}" class="nav-link">Выйти</a>

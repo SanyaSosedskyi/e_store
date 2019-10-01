@@ -89,7 +89,7 @@ class Order(models.Model):
         ordering = ['-created_at']
 
     def __str__(self):
-        return self.id
+        return '№' + str(self.id)
 
 
 class OrderDetails(models.Model):
@@ -98,10 +98,11 @@ class OrderDetails(models.Model):
     amount = models.IntegerField(verbose_name='Кол-во единиц товара', validators=[validators.MinValueValidator(1)])
 
     def __str__(self):
-        return self.id
+        return 'Товар ' + str(self.product.id) + ' к заказу №' + str(self.order.id)
 
     class Meta:
         verbose_name = 'Детали заказа'
+        verbose_name_plural = 'Детали заказов'
 
 
 

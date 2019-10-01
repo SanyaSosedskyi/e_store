@@ -3,8 +3,89 @@
 {% block content %}
 
     <div class="container-fluid">
-        <h1 style="text-align: center">Профиль</h1>
-        <div style="text-align: center"></div>
+        <h1 class="text-center">Профиль</h1>
+        <div id="profile-show-block"  class="text-center">
+            <ul class="list-unstyled">
+                <li>
+                    <strong>Имя: </strong>{{ user_profile_info.user.first_name }}
+                </li>
+                <li>
+                    <strong>Фамилия: </strong>{{ user_profile_info.user.last_name }}
+                </li>
+                <li>
+                    <strong>E-mail: </strong>{{ user_profile_info.user.email }}
+                </li>
+                <li>
+                    <strong>Логин: </strong>{{ user_profile_info.user.username }}
+                </li>
+                <li>
+                    <strong>Номер телефона: </strong>{{ user_profile_info.phone }}
+                </li>
+                <li>
+                    <strong>Пароль: </strong> ********
+                </li>
+                <li>
+                    <button class="btn btn-block btn-dark mt-2 p-1" onclick="changeProfile()">Изменить данные</button>
+                </li>
+            </ul>
+        </div>
+        <div id="profile-change-block" style="display:none" class="m-auto">
+            <form method="POST">
+                {% csrf_token %}
+                <label for="first-name-field"><strong>Имя</strong></label>
+                <input type="text" id="first-name-field" class="form-control input-block"
+                       value='{{ user_profile_info.user.first_name }}' type="text" name="first_name" required>
+                <label for="last-name-field"><strong>Фамилия</strong></label>
+                <input type="text" id="last-name-field" class="form-control input-block"
+                       value='{{ user_profile_info.user.last_name }}' type="text" name="last_name" required>
+                <label for="username-field"><strong>Логин</strong></label>
+                <input type="text" id="username-field" class="form-control input-block"
+                       value='{{ user_profile_info.user.username }}' type="text" name="username" required>
+                <label for="email-field"><strong>E-mail</strong></label>
+                <input type="email" id="email-field" class="form-control input-block"
+                       value='{{ user_profile_info.user.email }}' type="text" name="email" required>
+                <label for="phone-field"><strong>Номер телефона</strong></label>
+                <input type="text" id="phone-field" class="form-control input-block"
+                       value='{{ user_profile_info.phone }}' type="text" name="phone" required>
+                <label for="password-field"><strong>Пароль</strong></label>
+                <input type="password" id="password-field" class="form-control input-block mb-1"
+                       placeholder="Введите старый или новый пароль" type="text" name="password" required>
+                <input type="submit" class="btn btn-dark p-1 btn-block" onclick="showProfile()" value="Сохранить">
+            </form>
+        </div>
     </div>
+    <script>
+        function changeProfile(){
+            let profileChangeBlock = document.getElementById('profile-change-block');
+            let profileShowBlock = document.getElementById('profile-show-block');
+            profileChangeBlock.style.display = 'block';
+            profileShowBlock.style.display = 'none';
+        }
 
+        function showProfile(){
+            let profileChangeBlock = document.getElementById('profile-change-block');
+            let profileShowBlock = document.getElementById('profile-show-block');
+            profileChangeBlock.style.display = 'none';
+            profileShowBlock.style.display = 'block';
+        }
+    </script>
+    <h2 class="text-center mb-2">Заказы</h2>
+    <div class="container-fluid">
+        {% for key, value in orders.items %}
+            <h3 style="color:green">Заказ №{{ key }}</h3>
+            <div class="order-item d-flex mb-3">
+                <div class="order-item-info">
+                    <ul class="p-0 m-0">
+                        {% for item in value.details %}
+                            <li class="nav-link">{{ item.product.title}} <strong>{{ item.amount }} шт.</strong></li>
+                        {% endfor %}
+                        <hr>
+                        <li class="nav-link">Адрес: <strong>{{ value.order.address }} </strong></li>
+                        <li class="nav-link">Сумма: <strong>{{ value.order.total_sum }} грн</strong></li>
+                        <li class="nav-link">Статус: <strong>{{ value.order.get_status_display }}</strong></li>
+                    </ul>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

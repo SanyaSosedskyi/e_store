@@ -18,10 +18,10 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include, reverse_lazy
 from django.views.generic import RedirectView
-
+from e_store.models import Category
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('catalog/', include('e_store.urls')),
-    path('', RedirectView.as_view(url=reverse_lazy('e_store:catalog'), permanent=True)),
+    path('', RedirectView.as_view(url=reverse_lazy('e_store:catalog_redirect'), permanent=True)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -17,6 +17,7 @@
                     <li class="nav-item">{{ pd }}</li>
                 {% endfor %}
             </ul>
+            <h5 class="ml-3 mt-2">В наличии: {{ current_product.amount }}</h5>
             <h4 class="ml-3 mt-2">Цена: {{ current_product.price }} грн</h4>
         </div>
         <div class="col-sm-4">
@@ -26,10 +27,14 @@
             {% else %}
                 <div style="text-align:center">
                     <form method="POST">
+                        {% csrf_token %}
                         <input type="number" class="form-control mb-2" name="amount" placeholder="Количество">
                         <button type="submit" class="btn btn-primary">Добавить</button>
                     </form>
                 </div>
+            {% endif %}
+            {% if error %}
+                <p style="color:red" class="text-center">{{ error }}</p>
             {% endif %}
         </div>
     </div>

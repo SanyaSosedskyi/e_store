@@ -72,3 +72,29 @@ html, body{
     display:inline;
     width:auto;
 }
+
+#profile-change-block{
+    width:300px;
+}
+
+#profile-show-block button{
+    width:250px;
+    margin:5px auto;
+}
+
+.basket-item{
+    width:250px;
+}
+.basket-order{
+    width:360px;
+}
+
+.order-item{
+    border:1px solid #aaa;
+    border-radius: 5px;
+    padding:2px;
+}
+
+.order-item-image img{
+    height:190px;
+}

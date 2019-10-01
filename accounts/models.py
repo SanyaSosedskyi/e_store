@@ -10,7 +10,7 @@ class UserProfileInfo(models.Model):
                                  regex=r'^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$')])
 
     def __str__(self):
-        return 'id_' + str(self.user.id) + ' ' + self.user.first_name + ' ' + self.user.last_name
+        return 'id' + str(self.user.id) + ' ' + self.user.first_name + ' ' + self.user.last_name
 
     class Meta:
         verbose_name = 'Пользователь'

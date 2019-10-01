@@ -10,5 +10,7 @@ app_name = 'e_store'
 urlpatterns = [
     path('', RedirectView.as_view(url='{}/'.format(str(Category.objects.first().id))), name='catalog_redirect'),
     path('<int:category_id>/', views.catalog, name='catalog'),
-    path('<int:category_id>/<int:product_id>/', views.product, name='product')
+    path('<int:category_id>/<int:product_id>/', views.product, name='product'),
+    path('basket/', views.basket, name='basket'),
+    path('basket/<int:product_id>/', views.delete_from_basket, name='delete_from_basket')
 ]
